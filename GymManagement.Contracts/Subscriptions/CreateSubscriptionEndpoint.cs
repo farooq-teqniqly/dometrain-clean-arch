@@ -16,7 +16,7 @@ internal class CreateSubscriptionEndpoint(IIdService idService) : Endpoint<Creat
     public override async Task HandleAsync(CreateSubscriptionRequest req, CancellationToken ct)
     {
         var response = new CreateSubscriptionResponse(idService.CreateId(), req.Type);
-        await SendAsync(response, (int)HttpStatusCode.Created, ct);
+        await SendCreatedAtAsync<GetSubscriptionEndpoint>(new { response.Id }, response, cancellation: ct);
     }
 }
 
