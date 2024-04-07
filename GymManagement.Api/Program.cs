@@ -1,6 +1,6 @@
 ﻿using FastEndpoints;
 using FastEndpoints.Swagger;
-using GymManagement.Contracts.Subscriptions;
+using GymManagement.Contracts;
 using Serilog;
 
 namespace GymManagement.Api;
@@ -23,11 +23,8 @@ public class Program
         builder.Services.AddScoped<ITimeService, TimeService>();
 
         builder.Services
-            .AddFastEndpoints(
-                o => o.Assemblies = new[]
-                {
-                    typeof(CreateSubscriptionEndpoint).Assembly
-                })
+            .AddFastEndpoints()
+            .AddContractEndpoints()
             .SwaggerDocument();
 
         var app = builder.Build();
