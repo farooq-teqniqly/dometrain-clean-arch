@@ -1,4 +1,4 @@
-﻿using GymManagement.Contracts.Subscriptions;
+﻿using GymManagement.Services;
 
 namespace GymManagement.Api.Tests.Fakes;
 internal class FakeIdService : IIdService

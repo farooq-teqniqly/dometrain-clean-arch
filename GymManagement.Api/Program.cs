@@ -1,6 +1,7 @@
 ﻿using FastEndpoints;
 using FastEndpoints.Swagger;
 using GymManagement.Contracts;
+using GymManagement.Services;
 using Serilog;
 
 namespace GymManagement.Api;
@@ -21,6 +22,7 @@ public class Program
         builder.Host.UseSerilog((_, config) => config.ReadFrom.Configuration(builder.Configuration));
 
         builder.Services.AddScoped<ITimeService, TimeService>();
+        builder.Services.AddSingleton<IIdService, IdService>();
 
         builder.Services
             .AddFastEndpoints()
@@ -39,23 +41,3 @@ public class Program
         app.Run();
     }
 }
-internal class PingEndpoint(ITimeService timeService) : EndpointWithoutRequest<PingResponse>
-{
-    public override void Configure()
-    {
-        Get("api/ping");
-        AllowAnonymous();
-    }
-
-    public override async Task HandleAsync(CancellationToken ct)
-    {
-        await SendOkAsync(new PingResponse("GymManagement API says hello.", "1.0.0", timeService.GetUnixTimestamp()), ct);
-    }
-}
-internal record PingResponse(string Message, string ApiVersion, long Timestamp);
-
-internal class TimeService : ITimeService
-{
-    public long GetUnixTimestamp() => (long)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
-}
-

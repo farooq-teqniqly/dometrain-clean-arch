@@ -7,6 +7,6 @@ Content-Type: application/json
 
 {
   "adminId": {{adminId}},
-  "subscriptionType": "free"
+  "subscriptionType": 0
 }
 ###

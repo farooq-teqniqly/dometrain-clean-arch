@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using FastEndpoints;
+using GymManagement.Services;
 
 namespace GymManagement.Contracts.Subscriptions;
 
@@ -16,11 +17,6 @@ internal class CreateSubscriptionEndpoint(IIdService idService) : Endpoint<Creat
         var response = new CreateSubscriptionResponse(idService.CreateId(), req.SubscriptionType);
         await SendAsync(response, (int)HttpStatusCode.Created, ct);
     }
-}
-
-internal interface IIdService
-{
-    Guid CreateId();
 }
 
 internal record CreateSubscriptionResponse(Guid Id, SubscriptionType SubscriptionType);

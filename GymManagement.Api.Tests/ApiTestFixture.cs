@@ -1,6 +1,6 @@
 ﻿using FastEndpoints.Testing;
 using GymManagement.Api.Tests.Fakes;
-using GymManagement.Contracts.Subscriptions;
+using GymManagement.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 
