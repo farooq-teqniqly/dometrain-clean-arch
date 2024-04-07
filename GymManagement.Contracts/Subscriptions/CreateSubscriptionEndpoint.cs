@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using System.Text.Json.Serialization;
 using FastEndpoints;
 using GymManagement.Services;
 
@@ -14,15 +15,16 @@ internal class CreateSubscriptionEndpoint(IIdService idService) : Endpoint<Creat
 
     public override async Task HandleAsync(CreateSubscriptionRequest req, CancellationToken ct)
     {
-        var response = new CreateSubscriptionResponse(idService.CreateId(), req.SubscriptionType);
+        var response = new CreateSubscriptionResponse(idService.CreateId(), req.Type);
         await SendAsync(response, (int)HttpStatusCode.Created, ct);
     }
 }
 
-internal record CreateSubscriptionResponse(Guid Id, SubscriptionType SubscriptionType);
+internal record CreateSubscriptionResponse(Guid Id, SubscriptionType Type);
 
-internal record CreateSubscriptionRequest(SubscriptionType SubscriptionType, Guid AdminId);
+internal record CreateSubscriptionRequest(SubscriptionType Type, Guid AdminId);
 
+[JsonConverter(typeof(JsonStringEnumConverter))]
 internal enum SubscriptionType
 {
     Free = 0,

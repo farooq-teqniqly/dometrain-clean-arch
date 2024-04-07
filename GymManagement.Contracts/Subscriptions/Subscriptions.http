@@ -7,6 +7,12 @@ Content-Type: application/json
 
 {
   "adminId": {{adminId}},
-  "subscriptionType": 0
+  "type": "free"
 }
+###
+
+GET {{GymManagement.Api_HostAddress}}/api/subscriptions/d85fe8a0-f857-4391-a138-3479c903ba80
+Accept: application/json
+Content-Type: application/json
+
 ###

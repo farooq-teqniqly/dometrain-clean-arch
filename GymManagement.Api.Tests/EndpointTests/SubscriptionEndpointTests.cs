@@ -22,6 +22,18 @@ public class SubscriptionEndpointTests(ApiTestFixture fixture) : TestBase<ApiTes
         var expectedSubscriptionId = new Guid("d85fe8a0-f857-4391-a138-3479c903ba80");
 
         epResponse.Id.Should().Be(expectedSubscriptionId);
-        epResponse.SubscriptionType.Should().Be(request.SubscriptionType);
+        epResponse.Type.Should().Be(request.Type);
+    }
+
+    [Fact]
+    public async Task Can_Get_Subscription()
+    {
+        var (httpResponse, epResponse) = await fixture.Client
+            .GETAsync<GetSubscriptionEndpoint, GetSubscriptionRequest, GetSubscriptionResponse>(
+                new GetSubscriptionRequest(new Guid("d85fe8a0-f857-4391-a138-3479c903ba80")));
+
+        httpResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+
+        epResponse.Type.Should().Be(SubscriptionType.Pro);
     }
 }
