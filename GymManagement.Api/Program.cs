@@ -19,6 +19,8 @@ public class Program
 
         builder.Host.UseSerilog((_, config) => config.ReadFrom.Configuration(builder.Configuration));
 
+        builder.Services.AddScoped<ITimeService, TimeService>();
+
         builder.Services
             .AddFastEndpoints()
             .SwaggerDocument();
@@ -35,7 +37,7 @@ public class Program
         app.Run();
     }
 }
-internal class PingEndpoint : EndpointWithoutRequest<PingResponse>
+internal class PingEndpoint(ITimeService timeService) : EndpointWithoutRequest<PingResponse>
 {
     public override void Configure()
     {
@@ -45,8 +47,12 @@ internal class PingEndpoint : EndpointWithoutRequest<PingResponse>
 
     public override async Task HandleAsync(CancellationToken ct)
     {
-        var unixTimestamp = (long)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
-        await SendOkAsync(new PingResponse("GymManagement API says hello.", "1.0.0", unixTimestamp), ct);
+        await SendOkAsync(new PingResponse("GymManagement API says hello.", "1.0.0", timeService.GetUnixTimestamp()), ct);
     }
 }
 internal record PingResponse(string Message, string ApiVersion, long Timestamp);
+
+internal class TimeService : ITimeService
+{
+    public long GetUnixTimestamp() => (long)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+}

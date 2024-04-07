@@ -15,6 +15,6 @@ public class PingEndpointTests(ApiTestFixture fixture) : TestBase<ApiTestFixture
 
         epResponse.Message.Should().Be("GymManagement API says hello.");
         epResponse.ApiVersion.Should().Be("1.0.0");
-        epResponse.Timestamp.Should().BeGreaterThanOrEqualTo(0);
+        epResponse.Timestamp.Should().Be(123456);
     }
 }
