@@ -19,7 +19,9 @@ public class SubscriptionEndpointTests(ApiTestFixture fixture) : TestBase<ApiTes
 
         httpResponse.StatusCode.Should().Be(HttpStatusCode.Created);
 
-        epResponse.Id.Should().NotBe(Guid.Empty);
-        epResponse.SubscriptionType.Should().Be(SubscriptionType.Free);
+        var expectedSubscriptionId = new Guid("d85fe8a0-f857-4391-a138-3479c903ba80");
+
+        epResponse.Id.Should().Be(expectedSubscriptionId);
+        epResponse.SubscriptionType.Should().Be(request.SubscriptionType);
     }
 }
