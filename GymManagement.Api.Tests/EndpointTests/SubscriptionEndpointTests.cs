@@ -2,7 +2,7 @@
 using FastEndpoints;
 using FastEndpoints.Testing;
 using FluentAssertions;
-using GymManagement.Contracts.Subscriptions;
+using GymManagement.Subscriptions;
 
 namespace GymManagement.Api.Tests.EndpointTests;
 public class SubscriptionEndpointTests(ApiTestFixture fixture) : TestBase<ApiTestFixture>

@@ -1,7 +1,7 @@
 ﻿using FastEndpoints;
 using FastEndpoints.Swagger;
-using GymManagement.Contracts;
 using GymManagement.Services;
+using GymManagement.Subscriptions;
 using Serilog;
 
 namespace GymManagement.Api;
@@ -26,7 +26,7 @@ public class Program
 
         builder.Services
             .AddFastEndpoints()
-            .AddContractEndpoints()
+            .AddSubscriptionEndpoints()
             .SwaggerDocument();
 
         var app = builder.Build();

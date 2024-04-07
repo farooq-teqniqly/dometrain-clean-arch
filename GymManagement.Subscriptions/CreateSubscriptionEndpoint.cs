@@ -2,7 +2,7 @@
 using FastEndpoints;
 using GymManagement.Services;
 
-namespace GymManagement.Contracts.Subscriptions;
+namespace GymManagement.Subscriptions;
 
 internal class CreateSubscriptionEndpoint(IIdService idService) : Endpoint<CreateSubscriptionRequest, CreateSubscriptionResponse>
 {

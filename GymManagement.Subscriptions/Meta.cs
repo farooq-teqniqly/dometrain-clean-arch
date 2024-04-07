@@ -2,3 +2,5 @@
 
 [assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
 [assembly: InternalsVisibleTo("GymManagement.Api.Tests")]
+
+namespace GymManagement.Subscriptions;
