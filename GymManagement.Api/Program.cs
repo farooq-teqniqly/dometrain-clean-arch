@@ -34,22 +34,19 @@ public class Program
 
         app.Run();
     }
-
-    internal class PingEndpoint : EndpointWithoutRequest<PingResponse>
+}
+internal class PingEndpoint : EndpointWithoutRequest<PingResponse>
+{
+    public override void Configure()
     {
-        public override void Configure()
-        {
-            Get("api/ping");
-            AllowAnonymous();
-        }
-
-        public override async Task HandleAsync(CancellationToken ct)
-        {
-            var unixTimestamp = (long)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
-            await SendOkAsync(new PingResponse("GymManagement API says hello.", "1.0.0", unixTimestamp), ct);
-        }
+        Get("api/ping");
+        AllowAnonymous();
     }
 
-    internal record PingResponse(string Message, string ApiVersion, long Timestamp);
-
+    public override async Task HandleAsync(CancellationToken ct)
+    {
+        var unixTimestamp = (long)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+        await SendOkAsync(new PingResponse("GymManagement API says hello.", "1.0.0", unixTimestamp), ct);
+    }
 }
+internal record PingResponse(string Message, string ApiVersion, long Timestamp);
