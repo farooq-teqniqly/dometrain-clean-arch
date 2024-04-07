@@ -25,5 +25,7 @@ internal record CreateSubscriptionRequest(SubscriptionType SubscriptionType, Gui
 
 internal enum SubscriptionType
 {
-    Free
+    Free = 0,
+    Starter,
+    Pro
 }
