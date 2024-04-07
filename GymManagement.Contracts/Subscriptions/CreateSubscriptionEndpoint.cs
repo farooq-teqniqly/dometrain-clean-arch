@@ -23,11 +23,11 @@ internal class CreateSubscriptionEndpoint : Endpoint<CreateSubscriptionRequest, 
     }
 }
 
-internal record CreateSubscriptionResponse(Guid Id, SubscriptionType SubscriptionType);
+internal record CreateSubscriptionResponse(Guid Id, string SubscriptionType);
 
-internal record CreateSubscriptionRequest(SubscriptionType SubscriptionType, Guid AdminId);
+internal record CreateSubscriptionRequest(string SubscriptionType, Guid AdminId);
 
-internal enum SubscriptionType
+internal static class SubscriptionType
 {
-    Free
+    public static string Free = "Free";
 }
