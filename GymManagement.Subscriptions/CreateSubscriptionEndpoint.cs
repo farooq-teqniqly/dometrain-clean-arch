@@ -1,10 +1,11 @@
 ﻿using System.Text.Json.Serialization;
 using FastEndpoints;
 using GymManagement.Services;
+using GymManagement.Subscriptions.Integrations;
 
 namespace GymManagement.Subscriptions;
 
-internal class CreateSubscriptionEndpoint(IIdService idService) : Endpoint<CreateSubscriptionRequest, CreateSubscriptionResponse>
+internal class CreateSubscriptionEndpoint(ISubscriptionService subscriptionService) : Endpoint<CreateSubscriptionRequest, CreateSubscriptionResponse>
 {
     public override void Configure()
     {
@@ -14,7 +15,8 @@ internal class CreateSubscriptionEndpoint(IIdService idService) : Endpoint<Creat
 
     public override async Task HandleAsync(CreateSubscriptionRequest req, CancellationToken ct)
     {
-        var response = new CreateSubscriptionResponse(idService.CreateId(), req.Type);
+        var newSubscriptionId = subscriptionService.CreateSubscription(req.Type.ToString(), req.AdminId);
+        var response = new CreateSubscriptionResponse(newSubscriptionId, req.Type);
         await SendCreatedAtAsync<GetSubscriptionEndpoint>(new { response.Id }, response, cancellation: ct);
     }
 }
