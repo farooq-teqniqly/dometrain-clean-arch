@@ -16,8 +16,8 @@ internal class CreateSubscriptionEndpoint(ISender mediator) : Endpoint<CreateSub
     public override async Task HandleAsync(CreateSubscriptionRequest req, CancellationToken ct)
     {
         var command = new CreateSubscriptionCommand(req.Type.ToString(), req.AdminId);
-        var newSubscriptionId = await mediator.Send(command, ct);
-        var response = new CreateSubscriptionResponse(newSubscriptionId, req.Type);
+        var createSubscriptionResult = await mediator.Send(command, ct);
+        var response = new CreateSubscriptionResponse(createSubscriptionResult.Value, req.Type);
         await SendCreatedAtAsync<GetSubscriptionEndpoint>(new { response.Id }, response, cancellation: ct);
     }
 }
