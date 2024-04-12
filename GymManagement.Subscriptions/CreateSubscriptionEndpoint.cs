@@ -1,10 +1,11 @@
 ﻿using System.Text.Json.Serialization;
 using FastEndpoints;
-using GymManagement.Subscriptions.Integrations;
+using GymManagement.Subscriptions.Commands;
+using MediatR;
 
 namespace GymManagement.Subscriptions;
 
-internal class CreateSubscriptionEndpoint(ISubscriptionWriteService subscriptionWriteService) : Endpoint<CreateSubscriptionRequest, CreateSubscriptionResponse>
+internal class CreateSubscriptionEndpoint(ISender mediator) : Endpoint<CreateSubscriptionRequest, CreateSubscriptionResponse>
 {
     public override void Configure()
     {
@@ -14,8 +15,9 @@ internal class CreateSubscriptionEndpoint(ISubscriptionWriteService subscription
 
     public override async Task HandleAsync(CreateSubscriptionRequest req, CancellationToken ct)
     {
-        var newSubscriptionId = subscriptionWriteService.CreateSubscription(req.Type.ToString(), req.AdminId);
-        var response = new CreateSubscriptionResponse(newSubscriptionId, req.Type);
+        var command = new CreateSubscriptionCommand(req.Type.ToString(), req.AdminId);
+        var newSubscriptionId = await mediator.Send(command, ct);
+        var response = new CreateSubscriptionResponse(newSubscriptionId!, req.Type);
         await SendCreatedAtAsync<GetSubscriptionEndpoint>(new { response.Id }, response, cancellation: ct);
     }
 }

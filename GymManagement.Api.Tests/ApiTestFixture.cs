@@ -20,4 +20,5 @@ public class ApiTestFixture: AppFixture<Program>
         s.AddSingleton<IIdService, FakeIdService>();
         s.AddScoped<ISubscriptionWriteService, SubscriptionWriteService>();
     }
+
 }

@@ -14,6 +14,16 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddSubscriptionServices(this IServiceCollection services)
     {
         services.AddScoped<ISubscriptionWriteService, SubscriptionWriteService>();
+        services.AddMediatR();
+
+        return services;
+    }
+
+    private static IServiceCollection AddMediatR(this IServiceCollection services)
+    {
+        services.AddMediatR(opts =>
+            opts.RegisterServicesFromAssemblyContaining(typeof(ServiceCollectionExtensions)));
+
         return services;
     }
 }
