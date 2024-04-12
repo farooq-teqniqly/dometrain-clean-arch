@@ -3,13 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymManagement.Api", "GymManagement.Api\GymManagement.Api.csproj", "{7878444D-1880-458B-BB8A-6AB4E487B41A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GymManagement.Api", "GymManagement.Api\GymManagement.Api.csproj", "{7878444D-1880-458B-BB8A-6AB4E487B41A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymManagement.Application", "GymManagement.Application\GymManagement.Application.csproj", "{691114C3-1AC0-48BE-91D9-0D400BC72764}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymManagement.Domain", "GymManagement.Domain\GymManagement.Domain.csproj", "{380C2689-2712-4B76-A696-81CF551CF0AF}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymManagement.Infrastructure", "GymManagement.Infrastructure\GymManagement.Infrastructure.csproj", "{780D9580-EF41-44E9-922A-33773150ADDD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GymManagement.Domain", "GymManagement.Domain\GymManagement.Domain.csproj", "{380C2689-2712-4B76-A696-81CF551CF0AF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{35223881-D083-46FF-BFFB-CBB086E83C9C}"
 	ProjectSection(SolutionItems) = preProject
@@ -17,11 +13,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Directory.Build.props = Directory.Build.props
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymManagement.Api.Tests", "GymManagement.Api.Tests\GymManagement.Api.Tests.csproj", "{65808AE3-8745-4263-A568-20021C5221D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GymManagement.Api.Tests", "GymManagement.Api.Tests\GymManagement.Api.Tests.csproj", "{65808AE3-8745-4263-A568-20021C5221D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymManagement.Services", "GymManagement.Services\GymManagement.Services.csproj", "{83A3B5FE-FE61-4655-A4A5-F2FCEC32BABF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GymManagement.Services", "GymManagement.Services\GymManagement.Services.csproj", "{83A3B5FE-FE61-4655-A4A5-F2FCEC32BABF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymManagement.Subscriptions", "GymManagement.Subscriptions\GymManagement.Subscriptions.csproj", "{A08D54BD-7AF5-4256-B620-D4A733C8138A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GymManagement.Subscriptions", "GymManagement.Subscriptions\GymManagement.Subscriptions.csproj", "{A08D54BD-7AF5-4256-B620-D4A733C8138A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,18 +29,10 @@ Global
 		{7878444D-1880-458B-BB8A-6AB4E487B41A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7878444D-1880-458B-BB8A-6AB4E487B41A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7878444D-1880-458B-BB8A-6AB4E487B41A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{691114C3-1AC0-48BE-91D9-0D400BC72764}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{691114C3-1AC0-48BE-91D9-0D400BC72764}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{691114C3-1AC0-48BE-91D9-0D400BC72764}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{691114C3-1AC0-48BE-91D9-0D400BC72764}.Release|Any CPU.Build.0 = Release|Any CPU
 		{380C2689-2712-4B76-A696-81CF551CF0AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{380C2689-2712-4B76-A696-81CF551CF0AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{380C2689-2712-4B76-A696-81CF551CF0AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{380C2689-2712-4B76-A696-81CF551CF0AF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{780D9580-EF41-44E9-922A-33773150ADDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{780D9580-EF41-44E9-922A-33773150ADDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{780D9580-EF41-44E9-922A-33773150ADDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{780D9580-EF41-44E9-922A-33773150ADDD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{65808AE3-8745-4263-A568-20021C5221D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{65808AE3-8745-4263-A568-20021C5221D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{65808AE3-8745-4263-A568-20021C5221D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
