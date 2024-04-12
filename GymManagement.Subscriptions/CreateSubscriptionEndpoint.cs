@@ -1,6 +1,5 @@
 ﻿using System.Text.Json.Serialization;
 using FastEndpoints;
-using GymManagement.Services;
 using GymManagement.Subscriptions.Integrations;
 
 namespace GymManagement.Subscriptions;
