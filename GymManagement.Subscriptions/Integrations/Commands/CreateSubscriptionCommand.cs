@@ -1,7 +1,6 @@
-﻿using GymManagement.Subscriptions.Integrations;
-using MediatR;
+﻿using MediatR;
 
-namespace GymManagement.Subscriptions.Commands;
+namespace GymManagement.Subscriptions.Integrations.Commands;
 
 public record CreateSubscriptionCommand(string SubscriptionType, Guid AdminId) : IRequest<Guid>;
 

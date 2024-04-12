@@ -1,9 +1,9 @@
 ﻿using System.Text.Json.Serialization;
 using FastEndpoints;
-using GymManagement.Subscriptions.Commands;
+using GymManagement.Subscriptions.Integrations.Commands;
 using MediatR;
 
-namespace GymManagement.Subscriptions;
+namespace GymManagement.Subscriptions.Endpoints;
 
 internal class CreateSubscriptionEndpoint(ISender mediator) : Endpoint<CreateSubscriptionRequest, CreateSubscriptionResponse>
 {

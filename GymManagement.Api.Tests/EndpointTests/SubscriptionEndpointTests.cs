@@ -3,6 +3,7 @@ using FastEndpoints;
 using FastEndpoints.Testing;
 using FluentAssertions;
 using GymManagement.Subscriptions;
+using GymManagement.Subscriptions.Endpoints;
 
 namespace GymManagement.Api.Tests.EndpointTests;
 public class SubscriptionEndpointTests(ApiTestFixture fixture) : TestBase<ApiTestFixture>

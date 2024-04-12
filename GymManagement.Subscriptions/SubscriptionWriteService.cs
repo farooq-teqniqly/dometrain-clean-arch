@@ -1,6 +1,7 @@
 ﻿using GymManagement.Services;
+using GymManagement.Subscriptions.Integrations;
 
-namespace GymManagement.Subscriptions.Integrations;
+namespace GymManagement.Subscriptions;
 
 internal class SubscriptionWriteService(IIdService idService) : ISubscriptionWriteService
 {

@@ -1,6 +1,6 @@
 ﻿using FastEndpoints;
 
-namespace GymManagement.Subscriptions;
+namespace GymManagement.Subscriptions.Endpoints;
 internal class GetSubscriptionEndpoint : Endpoint<GetSubscriptionRequest, GetSubscriptionResponse>
 {
     public override void Configure()
