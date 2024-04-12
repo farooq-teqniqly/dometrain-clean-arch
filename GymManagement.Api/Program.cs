@@ -27,6 +27,7 @@ public class Program
         builder.Services
             .AddFastEndpoints()
             .AddSubscriptionEndpoints()
+            .AddSubscriptionServices()
             .SwaggerDocument();
 
         var app = builder.Build();
