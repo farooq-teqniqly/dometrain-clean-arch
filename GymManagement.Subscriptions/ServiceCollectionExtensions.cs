@@ -19,11 +19,10 @@ public static class ServiceCollectionExtensions
         return services;
     }
 
-    private static IServiceCollection AddMediatR(this IServiceCollection services)
+    private static void AddMediatR(this IServiceCollection services)
     {
         services.AddMediatR(opts =>
             opts.RegisterServicesFromAssemblyContaining(typeof(ServiceCollectionExtensions)));
 
-        return services;
     }
 }
