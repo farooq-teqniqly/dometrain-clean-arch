@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace GymManagement.Subscriptions.Integrations;
-public interface ISubscriptionService
+public interface ISubscriptionWriteService
 {
     Guid CreateSubscription(string subscriptionType, Guid adminId);
 }

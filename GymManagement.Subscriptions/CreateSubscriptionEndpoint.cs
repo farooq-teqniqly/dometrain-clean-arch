@@ -5,7 +5,7 @@ using GymManagement.Subscriptions.Integrations;
 
 namespace GymManagement.Subscriptions;
 
-internal class CreateSubscriptionEndpoint(ISubscriptionService subscriptionService) : Endpoint<CreateSubscriptionRequest, CreateSubscriptionResponse>
+internal class CreateSubscriptionEndpoint(ISubscriptionWriteService subscriptionWriteService) : Endpoint<CreateSubscriptionRequest, CreateSubscriptionResponse>
 {
     public override void Configure()
     {
@@ -15,7 +15,7 @@ internal class CreateSubscriptionEndpoint(ISubscriptionService subscriptionServi
 
     public override async Task HandleAsync(CreateSubscriptionRequest req, CancellationToken ct)
     {
-        var newSubscriptionId = subscriptionService.CreateSubscription(req.Type.ToString(), req.AdminId);
+        var newSubscriptionId = subscriptionWriteService.CreateSubscription(req.Type.ToString(), req.AdminId);
         var response = new CreateSubscriptionResponse(newSubscriptionId, req.Type);
         await SendCreatedAtAsync<GetSubscriptionEndpoint>(new { response.Id }, response, cancellation: ct);
     }

@@ -18,6 +18,6 @@ public class ApiTestFixture: AppFixture<Program>
     {
         s.AddScoped<ITimeService, FakeTimeService>();
         s.AddSingleton<IIdService, FakeIdService>();
-        s.AddScoped<ISubscriptionService, SubscriptionService>();
+        s.AddScoped<ISubscriptionWriteService, SubscriptionWriteService>();
     }
 }

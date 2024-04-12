@@ -2,7 +2,7 @@
 
 namespace GymManagement.Subscriptions.Integrations;
 
-public class SubscriptionService(IIdService idService) : ISubscriptionService
+public class SubscriptionWriteService(IIdService idService) : ISubscriptionWriteService
 {
     public Guid CreateSubscription(string subscriptionType, Guid adminId)
     {
