@@ -1,15 +1,20 @@
 ﻿using Ardalis.Result;
+using GymManagement.Services;
+using GymManagement.Subscriptions.Domain;
+using GymManagement.Subscriptions.Repositories;
 using MediatR;
 
 namespace GymManagement.Subscriptions.Integrations.Commands;
 
-public record CreateSubscriptionCommand(string SubscriptionType, Guid AdminId) : IRequest<Result<Guid>>;
+public record CreateSubscriptionCommand(string SubscriptionType, Guid AdminId) : IRequest<Result<Subscription>>;
 
-public class CreateSubscriptionCommandHandler(ISubscriptionWriteService subscriptionWriteService) : IRequestHandler<CreateSubscriptionCommand, Result<Guid>>
+public class CreateSubscriptionCommandHandler(ISubscriptionWriteRepository writeRepository, IIdService idService) : IRequestHandler<CreateSubscriptionCommand, Result<Subscription>>
 {
-    public Task<Result<Guid>> Handle(CreateSubscriptionCommand request, CancellationToken cancellationToken)
+    public async Task<Result<Subscription>> Handle(CreateSubscriptionCommand request, CancellationToken cancellationToken)
     {
-        var newSubscriptionId = subscriptionWriteService.CreateSubscription(request.SubscriptionType, request.AdminId);
-        return Task.FromResult<Result<Guid>>(newSubscriptionId);
+        var newSubscription = new Subscription(idService.CreateId());
+        await writeRepository.AddSubscription(newSubscription);
+
+        return Result<Subscription>.Success(newSubscription);
     }
 }

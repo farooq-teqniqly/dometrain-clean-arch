@@ -17,7 +17,7 @@ internal class CreateSubscriptionEndpoint(ISender mediator) : Endpoint<CreateSub
     {
         var command = new CreateSubscriptionCommand(req.Type.ToString(), req.AdminId);
         var createSubscriptionResult = await mediator.Send(command, ct);
-        var response = new CreateSubscriptionResponse(createSubscriptionResult.Value, req.Type);
+        var response = new CreateSubscriptionResponse(createSubscriptionResult.Value.Id, req.Type);
         await SendCreatedAtAsync<GetSubscriptionEndpoint>(new { response.Id }, response, cancellation: ct);
     }
 }
