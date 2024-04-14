@@ -1,6 +1,7 @@
 ﻿using GymManagement.Subscriptions.Domain;
+using GymManagement.Subscriptions.Repositories;
 
-namespace GymManagement.Subscriptions.Repositories;
+namespace GymManagement.Subscriptions.Persistence;
 
 internal class SubscriptionWriteRepository : ISubscriptionWriteRepository
 {

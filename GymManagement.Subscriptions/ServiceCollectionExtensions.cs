@@ -1,4 +1,5 @@
 ﻿using FastEndpoints;
+using GymManagement.Subscriptions.Persistence;
 using GymManagement.Subscriptions.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
