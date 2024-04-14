@@ -8,7 +8,7 @@ namespace GymManagement.Subscriptions.Integrations.Commands;
 
 public record CreateSubscriptionCommand(string SubscriptionType, Guid AdminId) : IRequest<Result<Subscription>>;
 
-public class CreateSubscriptionCommandHandler(ISubscriptionWriteRepository writeRepository, IIdService idService) : IRequestHandler<CreateSubscriptionCommand, Result<Subscription>>
+internal class CreateSubscriptionCommandHandler(ISubscriptionWriteRepository writeRepository, IIdService idService) : IRequestHandler<CreateSubscriptionCommand, Result<Subscription>>
 {
     public async Task<Result<Subscription>> Handle(CreateSubscriptionCommand request, CancellationToken cancellationToken)
     {
