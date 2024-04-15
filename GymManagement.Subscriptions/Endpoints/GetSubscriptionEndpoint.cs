@@ -1,7 +1,9 @@
 ﻿using FastEndpoints;
+using GymManagement.Subscriptions.Integrations.Queries;
+using MediatR;
 
 namespace GymManagement.Subscriptions.Endpoints;
-internal class GetSubscriptionEndpoint : Endpoint<GetSubscriptionRequest, GetSubscriptionResponse>
+internal class GetSubscriptionEndpoint(ISender mediator) : Endpoint<GetSubscriptionRequest, GetSubscriptionResponse>
 {
     public override void Configure()
     {
@@ -11,6 +13,8 @@ internal class GetSubscriptionEndpoint : Endpoint<GetSubscriptionRequest, GetSub
 
     public override async Task HandleAsync(GetSubscriptionRequest req, CancellationToken ct)
     {
+        var query = new GetSubscriptionByIdQuery(req.Id);
+        var queryResult = await mediator.Send(query, ct);
         await SendOkAsync(new GetSubscriptionResponse(SubscriptionType.Pro), ct);
     }
 }
