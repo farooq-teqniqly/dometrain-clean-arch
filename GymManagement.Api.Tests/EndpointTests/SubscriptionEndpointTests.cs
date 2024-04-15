@@ -22,9 +22,10 @@ public class SubscriptionEndpointTests(ApiTestFixture fixture) : TestBase<ApiTes
 
         createSubscriptionHttpResponse.StatusCode.Should().Be(HttpStatusCode.Created);
 
-        var expectedSubscriptionId = new Guid("d85fe8a0-f857-4391-a138-3479c903ba80");
+        var createdSubscriptionId =
+            new Guid(createSubscriptionHttpResponse.Headers.Location!.ToString().Split("/")[^1]);
 
-        createSubscriptionHttpResponse.Headers.Location.Should().Be($"/api/subscriptions/{expectedSubscriptionId}");
+        createdSubscriptionId.Should().NotBe(default(Guid));
 
         var newSubscription = createdSubscriptionEpResponse;
 
@@ -34,8 +35,46 @@ public class SubscriptionEndpointTests(ApiTestFixture fixture) : TestBase<ApiTes
 
         getSubscriptionHttpResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
-
         var retrievedSubscription = getSubscriptionEpResponse;
         retrievedSubscription.Type.Should().Be(SubscriptionType.Pro);
+    }
+
+    [Fact]
+    public async Task Can_Get_All_Subscriptions()
+    {
+        var adminId = Guid.NewGuid();
+
+        var subscriptionsToCreate = new List<Subscription>
+        {
+            new(adminId, SubscriptionType.Free),
+            new(adminId, SubscriptionType.Starter),
+            new(adminId, SubscriptionType.Pro)
+        };
+
+        foreach (var subscription in subscriptionsToCreate)
+        {
+            var request = new CreateSubscriptionRequest(subscription.Type, adminId);
+
+            await fixture.Client
+                .POSTAsync<CreateSubscriptionEndpoint, CreateSubscriptionRequest, CreateSubscriptionResponse>(
+                    request);
+        }
+
+        var (getSubscriptionsListHttpResponse, getSubscriptionSListEpResponse) = await fixture.Client
+            .GETAsync<GetSubscriptionsListEndpoint, GetSubscriptionsListResponse>();
+
+        getSubscriptionsListHttpResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+
+        var retrievedSubscriptions = getSubscriptionSListEpResponse.Subscriptions
+            .OrderBy(s => s.Type)
+            .ToList();
+
+        retrievedSubscriptions.Count.Should().Be(3);
+
+        for (var i = 0; i < retrievedSubscriptions.Count; i++)
+        {
+            retrievedSubscriptions[i].Type.Should().Be(subscriptionsToCreate[i].Type);
+        }
+
     }
 }
