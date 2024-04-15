@@ -23,7 +23,6 @@ public class ApiTestFixture : AppFixture<Program>
 
         services.AddScoped<ITimeService, FakeTimeService>();
         services.AddSingleton<IIdService, FakeIdService>();
-        services.AddScoped<IUnitOfWork, FakeUnitOfWork>();
     }
 
     private void ApplyDatabaseMigrations(IServiceCollection services)

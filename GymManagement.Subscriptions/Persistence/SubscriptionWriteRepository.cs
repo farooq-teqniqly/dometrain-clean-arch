@@ -5,11 +5,10 @@ namespace GymManagement.Subscriptions.Persistence;
 
 internal class SubscriptionWriteRepository(SubscriptionsDbContext dbContext) : ISubscriptionWriteRepository
 {
-    
+
 
     public async Task AddSubscription(Subscription subscription)
     {
         await dbContext.AddAsync(subscription);
-        await dbContext.SaveChangesAsync();
     }
 }

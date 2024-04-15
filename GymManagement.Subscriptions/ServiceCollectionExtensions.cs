@@ -1,4 +1,5 @@
 ﻿using FastEndpoints;
+using GymManagement.Services;
 using GymManagement.Subscriptions.Persistence;
 using GymManagement.Subscriptions.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +24,8 @@ public static class ServiceCollectionExtensions
         services.AddScoped<ISubscriptionWriteRepository, SubscriptionWriteRepository>();
         services.AddScoped<ISubscriptionReadRepository, SubscriptionReadRepository>();
         services.AddMediatR();
+
+        services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<SubscriptionsDbContext>());
 
         return services;
     }
