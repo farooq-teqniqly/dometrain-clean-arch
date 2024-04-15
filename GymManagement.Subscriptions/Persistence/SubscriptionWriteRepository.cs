@@ -11,4 +11,16 @@ internal class SubscriptionWriteRepository(SubscriptionsDbContext dbContext) : I
     {
         await dbContext.AddAsync(subscription);
     }
+
+    public async Task DeleteSubscription(Guid id)
+    {
+        var subscription = await dbContext.FindAsync<Subscription>(id);
+
+        if (subscription is null)
+        {
+            return;
+        }
+
+        dbContext.Remove(subscription);
+    }
 }

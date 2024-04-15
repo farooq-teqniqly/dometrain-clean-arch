@@ -11,7 +11,7 @@ namespace GymManagement.Api.Tests.EndpointTests;
 public class SubscriptionEndpointTests(ApiTestFixture fixture) : TestBase<ApiTestFixture>
 {
     [Fact]
-    public async Task Can_Create_And_Get_Subscription()
+    public async Task Can_Get_A_Single_Subscription()
     {
         var adminId = Guid.NewGuid();
         var request = new CreateSubscriptionRequest(SubscriptionType.Pro, adminId);
@@ -37,6 +37,26 @@ public class SubscriptionEndpointTests(ApiTestFixture fixture) : TestBase<ApiTes
 
         var retrievedSubscription = getSubscriptionEpResponse;
         retrievedSubscription.Type.Should().Be(SubscriptionType.Pro);
+    }
+
+    [Fact]
+    public async Task Can_Delete_A_Single_Subscription()
+    {
+        var adminId = Guid.NewGuid();
+        var request = new CreateSubscriptionRequest(SubscriptionType.Pro, adminId);
+
+        var (createSubscriptionHttpResponse, createdSubscriptionEpResponse) = await fixture.Client
+            .POSTAsync<CreateSubscriptionEndpoint, CreateSubscriptionRequest, CreateSubscriptionResponse>(
+                request);
+
+        var createdSubscriptionId =
+            new Guid(createSubscriptionHttpResponse.Headers.Location!.ToString().Split("/")[^1]);
+
+        var deleteSubscriptionHttpResponse = await fixture.Client
+            .DELETEAsync<DeleteSubscriptionEndpoint, DeleteSubscriptionRequest>(
+                new DeleteSubscriptionRequest(createdSubscriptionId));
+
+        deleteSubscriptionHttpResponse.StatusCode.Should().Be(HttpStatusCode.NoContent);
     }
 
     [Fact]
