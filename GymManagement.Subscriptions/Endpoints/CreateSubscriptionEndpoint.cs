@@ -1,5 +1,5 @@
-﻿using System.Text.Json.Serialization;
-using FastEndpoints;
+﻿using FastEndpoints;
+using GymManagement.Subscriptions.Domain;
 using GymManagement.Subscriptions.Integrations.Commands;
 using MediatR;
 
@@ -25,11 +25,3 @@ internal class CreateSubscriptionEndpoint(ISender mediator) : Endpoint<CreateSub
 internal record CreateSubscriptionResponse(Guid Id, SubscriptionType Type);
 
 internal record CreateSubscriptionRequest(SubscriptionType Type, Guid AdminId);
-
-[JsonConverter(typeof(JsonStringEnumConverter))]
-internal enum SubscriptionType
-{
-    Free = 0,
-    Starter,
-    Pro
-}

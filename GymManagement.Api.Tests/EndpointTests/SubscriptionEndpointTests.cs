@@ -2,6 +2,7 @@
 using FastEndpoints;
 using FastEndpoints.Testing;
 using FluentAssertions;
+using GymManagement.Subscriptions.Domain;
 using GymManagement.Subscriptions.Endpoints;
 
 namespace GymManagement.Api.Tests.EndpointTests;

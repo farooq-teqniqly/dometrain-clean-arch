@@ -1,4 +1,5 @@
 ﻿using FastEndpoints;
+using GymManagement.Subscriptions.Domain;
 using GymManagement.Subscriptions.Integrations.Queries;
 using MediatR;
 
