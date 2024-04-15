@@ -45,7 +45,7 @@ public class SubscriptionEndpointTests(ApiTestFixture fixture) : TestBase<ApiTes
         var adminId = Guid.NewGuid();
         var request = new CreateSubscriptionRequest(SubscriptionType.Pro, adminId);
 
-        var (createSubscriptionHttpResponse, createdSubscriptionEpResponse) = await fixture.Client
+        var (createSubscriptionHttpResponse, _) = await fixture.Client
             .POSTAsync<CreateSubscriptionEndpoint, CreateSubscriptionRequest, CreateSubscriptionResponse>(
                 request);
 
@@ -58,7 +58,7 @@ public class SubscriptionEndpointTests(ApiTestFixture fixture) : TestBase<ApiTes
     [Fact]
     public async Task Can_Get_All_Subscriptions()
     {
-        var (getExistingSubscriptionsListHttpResponse, getExistingSubscriptionSListEpResponse) = await fixture.Client
+        var (_, getExistingSubscriptionSListEpResponse) = await fixture.Client
             .GETAsync<GetSubscriptionsListEndpoint, GetSubscriptionsListResponse>();
 
         var existingSubscriptions = getExistingSubscriptionSListEpResponse.Subscriptions.ToList();
