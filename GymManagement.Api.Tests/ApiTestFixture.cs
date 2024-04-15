@@ -10,9 +10,9 @@ namespace GymManagement.Api.Tests;
 
 public class ApiTestFixture : AppFixture<Program>
 {
-    protected override void ConfigureApp(IWebHostBuilder a)
+    protected override void ConfigureApp(IWebHostBuilder builder)
     {
-        a.UseContentRoot(Directory.GetCurrentDirectory());
+        builder.UseContentRoot(Directory.GetCurrentDirectory());
     }
 
     protected override void ConfigureServices(IServiceCollection services)
