@@ -12,7 +12,10 @@ internal class CreateSubscriptionCommandHandler(ISubscriptionWriteRepository wri
 {
     public async Task<Result<Subscription>> Handle(CreateSubscriptionCommand request, CancellationToken cancellationToken)
     {
-        var newSubscription = new Subscription(idService.CreateId());
+        var newSubscription = new Subscription(
+            idService.CreateId(),
+            Enum.Parse<SubscriptionType>(request.SubscriptionType));
+
         await writeRepository.AddSubscription(newSubscription);
         //await unitOfWork.CommitChanges();
 

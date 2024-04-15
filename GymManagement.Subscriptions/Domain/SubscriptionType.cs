@@ -3,7 +3,7 @@
 namespace GymManagement.Subscriptions.Domain;
 
 [JsonConverter(typeof(JsonStringEnumConverter))]
-internal enum SubscriptionType
+public enum SubscriptionType
 {
     Free = 0,
     Starter,

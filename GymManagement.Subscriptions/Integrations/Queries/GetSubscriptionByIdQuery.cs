@@ -10,7 +10,7 @@ internal class GetSubscriptionByIdQueryHandler() : IRequestHandler<GetSubscripti
 {
     public Task<Result<Subscription>> Handle(GetSubscriptionByIdQuery request, CancellationToken cancellationToken)
     {
-        var subscription = new Subscription(new Guid("d85fe8a0-f857-4391-a138-3479c903ba80"));
+        var subscription = new Subscription(new Guid("d85fe8a0-f857-4391-a138-3479c903ba80"), SubscriptionType.Pro);
         return Task.FromResult(Result<Subscription>.Success(subscription));
     }
 }
