@@ -4,6 +4,8 @@ using FastEndpoints.Testing;
 using FluentAssertions;
 
 namespace GymManagement.Api.Tests.EndpointTests;
+
+[Collection("IntegrationTests")]
 public class PingEndpointTests(ApiTestFixture fixture) : TestBase<ApiTestFixture>
 {
     [Fact]

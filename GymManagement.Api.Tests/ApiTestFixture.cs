@@ -1,23 +1,43 @@
 ﻿using FastEndpoints.Testing;
 using GymManagement.Api.Tests.Fakes;
 using GymManagement.Services;
+using GymManagement.Subscriptions.Persistence;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace GymManagement.Api.Tests;
 
-public class ApiTestFixture: AppFixture<Program>
+public class ApiTestFixture : AppFixture<Program>
 {
     protected override void ConfigureApp(IWebHostBuilder a)
     {
         a.UseContentRoot(Directory.GetCurrentDirectory());
     }
 
-    protected override void ConfigureServices(IServiceCollection s)
+    protected override void ConfigureServices(IServiceCollection services)
     {
-        s.AddScoped<ITimeService, FakeTimeService>();
-        s.AddSingleton<IIdService, FakeIdService>();
-        s.AddScoped<IUnitOfWork, FakeUnitOfWork>();
+        services.AddDbContext<SubscriptionsDbContext>(opts => opts.UseSqlite());
+
+        ApplyDatabaseMigrations(services);
+
+        services.AddScoped<ITimeService, FakeTimeService>();
+        services.AddSingleton<IIdService, FakeIdService>();
+        services.AddScoped<IUnitOfWork, FakeUnitOfWork>();
     }
 
+    private void ApplyDatabaseMigrations(IServiceCollection services)
+    {
+        var serviceProvider = services.BuildServiceProvider();
+
+        using var scope = serviceProvider.CreateScope();
+        var subscriptionsDbContext = scope.ServiceProvider.GetRequiredService<SubscriptionsDbContext>();
+
+        if (File.Exists(subscriptionsDbContext.Database.GetDbConnection().DataSource))
+        {
+            File.Delete(subscriptionsDbContext.Database.GetDbConnection().DataSource);
+        }
+
+        subscriptionsDbContext.Database.Migrate();
+    }
 }

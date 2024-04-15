@@ -6,6 +6,8 @@ using GymManagement.Subscriptions.Domain;
 using GymManagement.Subscriptions.Endpoints;
 
 namespace GymManagement.Api.Tests.EndpointTests;
+
+[Collection("IntegrationTests")]
 public class SubscriptionEndpointTests(ApiTestFixture fixture) : TestBase<ApiTestFixture>
 {
     [Fact]
@@ -25,7 +27,7 @@ public class SubscriptionEndpointTests(ApiTestFixture fixture) : TestBase<ApiTes
         createSubscriptionHttpResponse.Headers.Location.Should().Be($"/api/subscriptions/{expectedSubscriptionId}");
 
         var newSubscription = createdSubscriptionEpResponse;
-        
+
         var (getSubscriptionHttpResponse, getSubscriptionEpResponse) = await fixture.Client
             .GETAsync<GetSubscriptionEndpoint, GetSubscriptionRequest, GetSubscriptionResponse>(
                 new GetSubscriptionRequest(newSubscription.Id));
