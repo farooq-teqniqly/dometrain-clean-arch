@@ -1,6 +1,7 @@
 ﻿using FastEndpoints;
 using GymManagement.Subscriptions.Persistence;
 using GymManagement.Subscriptions.Repositories;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace GymManagement.Subscriptions;
@@ -14,6 +15,11 @@ public static class ServiceCollectionExtensions
 
     public static IServiceCollection AddSubscriptionServices(this IServiceCollection services)
     {
+        services.AddDbContext<SubscriptionsDbContext>(opts =>
+        {
+            opts.UseSqlite("Data Source=GymManagement.db");
+        });
+
         services.AddScoped<ISubscriptionWriteRepository, SubscriptionWriteRepository>();
         services.AddScoped<ISubscriptionReadRepository, SubscriptionReadRepository>();
         services.AddMediatR();

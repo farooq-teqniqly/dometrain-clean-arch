@@ -3,10 +3,11 @@ using GymManagement.Subscriptions.Repositories;
 
 namespace GymManagement.Subscriptions.Persistence;
 
-internal class SubscriptionReadRepository : ISubscriptionReadRepository
+internal class SubscriptionReadRepository(SubscriptionsDbContext dbContext) : ISubscriptionReadRepository
 {
-    public Task<Subscription> GetSubscription(Guid id)
+    public async Task<Subscription> GetSubscription(Guid id)
     {
-        return Task.FromResult(InMemoryDatabase.GetSubscription(id));
+        //TODO: Make return type nullable.
+        return (await dbContext.Subscriptions.FindAsync(id))!;
     }
 }

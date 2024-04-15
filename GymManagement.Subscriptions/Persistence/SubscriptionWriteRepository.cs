@@ -3,13 +3,13 @@ using GymManagement.Subscriptions.Repositories;
 
 namespace GymManagement.Subscriptions.Persistence;
 
-internal class SubscriptionWriteRepository : ISubscriptionWriteRepository
+internal class SubscriptionWriteRepository(SubscriptionsDbContext dbContext) : ISubscriptionWriteRepository
 {
     
 
-    public Task AddSubscription(Subscription subscription)
+    public async Task AddSubscription(Subscription subscription)
     {
-        InMemoryDatabase.AddSubscription(subscription);
-        return Task.CompletedTask;
+        await dbContext.AddAsync(subscription);
+        await dbContext.SaveChangesAsync();
     }
 }
