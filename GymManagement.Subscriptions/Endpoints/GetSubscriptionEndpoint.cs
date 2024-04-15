@@ -16,7 +16,7 @@ internal class GetSubscriptionEndpoint(ISender mediator) : Endpoint<GetSubscript
     {
         var query = new GetSubscriptionByIdQuery(req.Id);
         var queryResult = await mediator.Send(query, ct);
-        await SendOkAsync(new GetSubscriptionResponse(SubscriptionType.Pro), ct);
+        await SendOkAsync(new GetSubscriptionResponse(queryResult.Value.Type), ct);
     }
 }
 
