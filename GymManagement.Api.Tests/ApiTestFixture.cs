@@ -1,7 +1,6 @@
 ﻿using FastEndpoints.Testing;
 using GymManagement.Api.Tests.Fakes;
 using GymManagement.Services;
-using GymManagement.Subscriptions.Repositories;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -19,7 +18,6 @@ public class ApiTestFixture: AppFixture<Program>
         s.AddScoped<ITimeService, FakeTimeService>();
         s.AddSingleton<IIdService, FakeIdService>();
         s.AddScoped<IUnitOfWork, FakeUnitOfWork>();
-        s.AddScoped<ISubscriptionWriteRepository, FakeSubscriptionsWriteRepository>();
     }
 
 }

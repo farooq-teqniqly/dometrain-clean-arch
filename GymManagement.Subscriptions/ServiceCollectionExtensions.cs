@@ -15,6 +15,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddSubscriptionServices(this IServiceCollection services)
     {
         services.AddScoped<ISubscriptionWriteRepository, SubscriptionWriteRepository>();
+        services.AddScoped<ISubscriptionReadRepository, SubscriptionReadRepository>();
         services.AddMediatR();
 
         return services;

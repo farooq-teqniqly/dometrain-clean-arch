@@ -31,12 +31,23 @@ public class SubscriptionEndpointTests(ApiTestFixture fixture) : TestBase<ApiTes
     [Fact]
     public async Task Can_Get_Subscription()
     {
-        var (httpResponse, epResponse) = await fixture.Client
+        var adminId = new Guid("091c08d9-1343-4a25-b7e6-3c9a4d70d9d2");
+        var request = new CreateSubscriptionRequest(SubscriptionType.Pro, adminId);
+
+        var (createSubscriptionHttpResponse, createdSubscriptionEpResponse) = await fixture.Client
+            .POSTAsync<CreateSubscriptionEndpoint, CreateSubscriptionRequest, CreateSubscriptionResponse>(
+                request);
+
+        var newSubscription = createdSubscriptionEpResponse;
+        
+        var (getSubscriptionHttpResponse, getSubscriptionEpResponse) = await fixture.Client
             .GETAsync<GetSubscriptionEndpoint, GetSubscriptionRequest, GetSubscriptionResponse>(
-                new GetSubscriptionRequest(new Guid("d85fe8a0-f857-4391-a138-3479c903ba80")));
+                new GetSubscriptionRequest(newSubscription.Id));
 
-        httpResponse.StatusCode.Should().Be(HttpStatusCode.OK);
+        getSubscriptionHttpResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
-        epResponse.Type.Should().Be(SubscriptionType.Pro);
+
+        var retrievedSubscription = getSubscriptionEpResponse;
+        retrievedSubscription.Type.Should().Be(SubscriptionType.Pro);
     }
 }
