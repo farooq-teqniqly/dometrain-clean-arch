@@ -60,6 +60,16 @@ public class SubscriptionEndpointTests(ApiTestFixture fixture) : TestBase<ApiTes
     }
 
     [Fact]
+    public async Task When_Subscription_Does_Not_Exist_Delete_Returns_204()
+    {
+        var deleteSubscriptionHttpResponse = await fixture.Client
+            .DELETEAsync<DeleteSubscriptionEndpoint, DeleteSubscriptionRequest>(
+                new DeleteSubscriptionRequest(Guid.NewGuid()));
+
+        deleteSubscriptionHttpResponse.StatusCode.Should().Be(HttpStatusCode.NoContent);
+    }
+
+    [Fact]
     public async Task Created_Subscription_Response_Has_Subscription_Id_In_Location_Header()
     {
         var adminId = Guid.NewGuid();
