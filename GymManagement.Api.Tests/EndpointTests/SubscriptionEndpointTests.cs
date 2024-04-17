@@ -36,7 +36,9 @@ public class SubscriptionEndpointTests(ApiTestFixture fixture) : TestBase<ApiTes
         getSubscriptionHttpResponse.StatusCode.Should().Be(HttpStatusCode.OK);
 
         var retrievedSubscription = getSubscriptionEpResponse;
+
         retrievedSubscription.Type.Should().Be(SubscriptionType.Pro);
+        retrievedSubscription.AdminId.Should().NotBe(default(Guid));
     }
 
     [Fact]
