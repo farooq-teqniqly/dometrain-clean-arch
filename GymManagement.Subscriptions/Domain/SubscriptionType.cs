@@ -1,11 +1,10 @@
-﻿using System.Text.Json.Serialization;
+﻿using Ardalis.SmartEnum;
 
 namespace GymManagement.Subscriptions.Domain;
 
-[JsonConverter(typeof(JsonStringEnumConverter))]
-public enum SubscriptionType
+public class SubscriptionType(string name, int value) : SmartEnum<SubscriptionType>(name, value)
 {
-    Free = 0,
-    Starter,
-    Pro
+    public static readonly SubscriptionType Free = new(nameof(Free), 0);
+    public static readonly SubscriptionType Starter = new(nameof(Starter), 1);
+    public static readonly SubscriptionType Pro = new(nameof(Pro), 2);
 }

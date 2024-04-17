@@ -6,7 +6,7 @@ using MediatR;
 
 namespace GymManagement.Subscriptions.Integrations.Commands;
 
-public record CreateSubscriptionCommand(string SubscriptionType, Guid AdminId) : IRequest<Result<Subscription>>;
+public record CreateSubscriptionCommand(SubscriptionType SubscriptionType, Guid AdminId) : IRequest<Result<Subscription>>;
 
 internal class CreateSubscriptionCommandHandler(ISubscriptionWriteRepository writeRepository, IIdService idService, IUnitOfWork unitOfWork) : IRequestHandler<CreateSubscriptionCommand, Result<Subscription>>
 {
@@ -14,7 +14,8 @@ internal class CreateSubscriptionCommandHandler(ISubscriptionWriteRepository wri
     {
         var newSubscription = new Subscription(
             idService.CreateId(),
-            Enum.Parse<SubscriptionType>(request.SubscriptionType));
+            request.SubscriptionType,
+            request.AdminId);
 
         await writeRepository.AddSubscription(newSubscription);
         await unitOfWork.CommitChanges();

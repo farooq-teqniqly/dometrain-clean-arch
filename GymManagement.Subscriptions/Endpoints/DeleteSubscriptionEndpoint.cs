@@ -14,7 +14,7 @@ internal class DeleteSubscriptionEndpoint(ISender mediator) : Endpoint<DeleteSub
     public override async Task HandleAsync(DeleteSubscriptionRequest req, CancellationToken ct)
     {
         var command = new DeleteSubscriptionCommand(req.Id);
-        var deleteSubscriptionResult = await mediator.Send(command, ct);
+        await mediator.Send(command, ct);
         await SendNoContentAsync(ct);
     }
 }

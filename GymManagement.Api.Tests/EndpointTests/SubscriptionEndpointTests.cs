@@ -14,7 +14,7 @@ public class SubscriptionEndpointTests(ApiTestFixture fixture) : TestBase<ApiTes
     public async Task Can_Get_A_Single_Subscription()
     {
         var adminId = Guid.NewGuid();
-        var request = new CreateSubscriptionRequest(SubscriptionType.Pro, adminId);
+        var request = new CreateSubscriptionRequest("Pro", adminId);
 
         var (createSubscriptionHttpResponse, createdSubscriptionEpResponse) = await fixture.Client
             .POSTAsync<CreateSubscriptionEndpoint, CreateSubscriptionRequest, CreateSubscriptionResponse>(
@@ -43,7 +43,7 @@ public class SubscriptionEndpointTests(ApiTestFixture fixture) : TestBase<ApiTes
     public async Task Can_Delete_A_Single_Subscription()
     {
         var adminId = Guid.NewGuid();
-        var request = new CreateSubscriptionRequest(SubscriptionType.Pro, adminId);
+        var request = new CreateSubscriptionRequest("Pro", adminId);
 
         var (createSubscriptionHttpResponse, createdSubscriptionEpResponse) = await fixture.Client
             .POSTAsync<CreateSubscriptionEndpoint, CreateSubscriptionRequest, CreateSubscriptionResponse>(
@@ -73,7 +73,7 @@ public class SubscriptionEndpointTests(ApiTestFixture fixture) : TestBase<ApiTes
     public async Task Created_Subscription_Response_Has_Subscription_Id_In_Location_Header()
     {
         var adminId = Guid.NewGuid();
-        var request = new CreateSubscriptionRequest(SubscriptionType.Pro, adminId);
+        var request = new CreateSubscriptionRequest("Pro", adminId);
 
         var (createSubscriptionHttpResponse, _) = await fixture.Client
             .POSTAsync<CreateSubscriptionEndpoint, CreateSubscriptionRequest, CreateSubscriptionResponse>(
@@ -95,16 +95,14 @@ public class SubscriptionEndpointTests(ApiTestFixture fixture) : TestBase<ApiTes
 
         var adminId = Guid.NewGuid();
 
-        var subscriptionsToCreate = new List<Subscription>
+        var subscriptionTypes = new List<string>()
         {
-            new(adminId, SubscriptionType.Free),
-            new(adminId, SubscriptionType.Starter),
-            new(adminId, SubscriptionType.Pro)
+            "Free", "Starter", "Pro"
         };
 
-        foreach (var subscription in subscriptionsToCreate)
+        foreach (var subscriptionType in subscriptionTypes)
         {
-            var request = new CreateSubscriptionRequest(subscription.Type, adminId);
+            var request = new CreateSubscriptionRequest(subscriptionType, adminId);
 
             await fixture.Client
                 .POSTAsync<CreateSubscriptionEndpoint, CreateSubscriptionRequest, CreateSubscriptionResponse>(
@@ -125,7 +123,7 @@ public class SubscriptionEndpointTests(ApiTestFixture fixture) : TestBase<ApiTes
 
         for (var i = 0; i < retrievedSubscriptions.Count; i++)
         {
-            retrievedSubscriptions[i].Type.Should().Be(subscriptionsToCreate[i].Type);
+            retrievedSubscriptions[i].Type.ToString().Should().Be(subscriptionTypes[i]);
         }
 
     }
