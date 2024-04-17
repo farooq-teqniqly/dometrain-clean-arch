@@ -16,7 +16,8 @@ namespace GymManagement.Subscriptions.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Type = table.Column<int>(type: "INTEGER", nullable: false)
+                    Type = table.Column<int>(type: "INTEGER", nullable: false),
+                    AdminId = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GymManagement.Subscriptions.Data.Migrations
 {
     [DbContext(typeof(SubscriptionsDbContext))]
-    [Migration("20240417144339_SubscriptionTypes")]
-    partial class SubscriptionTypes
+    [Migration("20240417213311_InitialSubscriptions")]
+    partial class InitialSubscriptions
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
