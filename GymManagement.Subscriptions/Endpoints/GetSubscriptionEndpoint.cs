@@ -1,4 +1,5 @@
-﻿using FastEndpoints;
+﻿using Ardalis.Result;
+using FastEndpoints;
 using GymManagement.Subscriptions.Domain;
 using GymManagement.Subscriptions.Integrations.Queries;
 using MediatR;
@@ -16,6 +17,13 @@ internal class GetSubscriptionEndpoint(ISender mediator) : Endpoint<GetSubscript
     {
         var query = new GetSubscriptionByIdQuery(req.Id);
         var queryResult = await mediator.Send(query, ct);
+
+        if (queryResult.Status == ResultStatus.NotFound)
+        {
+            await SendNotFoundAsync(ct);
+            return;
+        }
+
         var subscription = queryResult.Value;
         await SendOkAsync(new GetSubscriptionResponse(subscription.Type, subscription.AdminId), ct);
     }

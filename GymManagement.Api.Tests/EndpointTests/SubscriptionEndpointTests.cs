@@ -42,6 +42,16 @@ public class SubscriptionEndpointTests(ApiTestFixture fixture) : TestBase<ApiTes
     }
 
     [Fact]
+    public async Task When_Subscription_Does_Not_Exist_Get_Returns_404()
+    {
+        var (getSubscriptionHttpResponse, getSubscriptionEpResponse) = await fixture.Client
+            .GETAsync<GetSubscriptionEndpoint, GetSubscriptionRequest, GetSubscriptionResponse>(
+                new GetSubscriptionRequest(Guid.NewGuid()));
+
+        getSubscriptionHttpResponse.StatusCode.Should().Be(HttpStatusCode.NotFound);
+    }
+
+    [Fact]
     public async Task Can_Delete_A_Single_Subscription()
     {
         var adminId = Guid.NewGuid();
