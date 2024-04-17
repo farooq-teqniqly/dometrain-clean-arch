@@ -45,7 +45,7 @@ public class SubscriptionEndpointTests(ApiTestFixture fixture) : TestBase<ApiTes
         var adminId = Guid.NewGuid();
         var request = new CreateSubscriptionRequest("Pro", adminId);
 
-        var (createSubscriptionHttpResponse, createdSubscriptionEpResponse) = await fixture.Client
+        var (createSubscriptionHttpResponse, _) = await fixture.Client
             .POSTAsync<CreateSubscriptionEndpoint, CreateSubscriptionRequest, CreateSubscriptionResponse>(
                 request);
 
