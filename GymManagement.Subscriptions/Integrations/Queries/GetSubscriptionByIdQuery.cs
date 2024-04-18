@@ -12,7 +12,6 @@ internal class GetSubscriptionByIdQueryHandler(ISubscriptionReadRepository subsc
     public async Task<Result<Subscription>> Handle(GetSubscriptionByIdQuery request, CancellationToken cancellationToken)
     {
         var subscription = await subscriptionReadRepository.GetSubscription(request.Id);
-
         return subscription is null ? Result<Subscription>.NotFound() : Result<Subscription>.Success(subscription);
     }
 }
